@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">YouStudent</string>
+    <string name="loggin_button">Login</string>
+    <string name="register_button">Register</string>
+    <string name="editTextTextPersonName.hint">fuck off</string>
+    <string name="Logo_text">You\nStudent</string>
+    <string name="Logo_text_login">Login</string>
+    <string name="email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">password</string>
+
+</resources>
