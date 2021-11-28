@@ -24,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText passwordArea;
     EditText passwordAreaRe;
     EditText email;
-    FirebaseAuth  mauth;
+    FirebaseAuth mauth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.d("status", "createUserWithEmail:success");
                                         FirebaseUser user = mauth.getCurrentUser();
                                         // to the main activity
-                                        switchActivity(MainActivity.class);
+                                        switchActivity(UserActivity.class);
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("status", "createUserWithEmail:failure", task.getException());
