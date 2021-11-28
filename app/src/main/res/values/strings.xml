@@ -8,5 +8,5 @@
     <string name="email">Email</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="password">password</string>
-
+    <string name="Welcome">Welcome to \nYou\nStudent</string>
 </resources>

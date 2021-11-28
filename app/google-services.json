@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "343172109621",
+    "project_id": "youstudent-a6930",
+    "storage_bucket": "youstudent-a6930.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:343172109621:android:71b90864a975acb0dd687c",
+        "android_client_info": {
+          "package_name": "com.IRM.YouStudent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "343172109621-bo889h82go29shhoqvf5hjf5rg7p4jud.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1DykYKW_Sjb8aOMf9Th0k9s7ZE4FIxw8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "343172109621-bo889h82go29shhoqvf5hjf5rg7p4jud.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

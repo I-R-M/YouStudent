@@ -1,4 +1,4 @@
-package com.example.mycolorapp;
+package com.example.YouStudent;
 
 import android.content.Context;
 

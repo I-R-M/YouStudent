@@ -1,4 +1,4 @@
-package com.example.mycolorapp;
+package com.example.YouStudent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
+public class MainActivity extends AppCompatActivity {
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,15 @@ public class MainActivity extends AppCompatActivity {
                 switchActivity(RegisterActivity.class);
             }
         });
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        if (user != null)
+        {
+            /*Take user to the app*/
+
+        }
+
     }
     private void switchActivity(Class c)
     {
