@@ -9,4 +9,7 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="password">password</string>
     <string name="Welcome">Welcome to \nYou\nStudent</string>
+    <string name="start">Take Picture</string>
+    <string name="name">Picture Name</string>
+    <string name="save_pic">Save Picture</string>
 </resources>
