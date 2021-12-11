@@ -16,13 +16,52 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="150dp"
         android:orientation="vertical"
+        android:showDividers="middle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
+    <!--        android:hint="e.g 5"-->
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:showDividers="middle"
-        ></LinearLayout>
+        app:srcCompat="@drawable/ic_take_photo_foreground" />
+
+    <ImageButton
+        android:id="@+id/addPicture"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="570dp"
+        android:contentDescription="Add picture"
+        android:src="@drawable/ic_take_photo_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/addFolder"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="570dp"
+        android:layout_marginEnd="210dp"
+        android:contentDescription="Add folder"
+        android:src="@drawable/ic_tadd_folder_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--        android:hint="e.g 5"-->
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_tadd_folder_foreground" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

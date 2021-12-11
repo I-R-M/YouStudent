@@ -3,17 +3,23 @@ package com.example.YouStudent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -94,25 +100,19 @@ public class UserFolderActivity extends AppCompatActivity {
                         // Uh-oh, an error occurred!
                     }
                 });
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        Button btn = new Button(UserFolderActivity.this);
-        btn.setId((int)5000);
-        final int id_ = btn.getId();
-        btn.setText("add folder");
-        btn.setBackgroundColor(Color.rgb(0, 0, 0));
-        btn.setTextColor(Color.rgb(255, 255, 255));
-        linearLayout.addView(btn, params);
-        Button btn1 = ((Button) findViewById(id_));
-        btn1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(),
-                        "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                        .show();
+
+        ImageButton addPhoto = (ImageButton) findViewById(R.id.addPicture);
+        addPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                 switchActivity(UserActivity.class);
             }
         });
-
     }
 
+    private void switchActivity(Class c)
+    {
+        Intent i = new Intent(this,c);
+        startActivity(i);
+    }
 }
