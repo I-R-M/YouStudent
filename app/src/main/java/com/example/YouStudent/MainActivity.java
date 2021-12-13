@@ -20,14 +20,14 @@ public class MainActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchActivity(LoginActivity.class);
+                Data.switchActivity(MainActivity.this, LoginActivity.class);
             }
         });
         Button register_button = findViewById(R.id.button_register);
         register_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchActivity(RegisterActivity.class);
+                Data.switchActivity(MainActivity.this, RegisterActivity.class);
             }
         });
 
@@ -39,10 +39,5 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-    }
-    private void switchActivity(Class c)
-    {
-        Intent i = new Intent(this,c);
-        startActivity(i);
     }
 }

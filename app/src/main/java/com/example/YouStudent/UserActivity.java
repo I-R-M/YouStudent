@@ -118,8 +118,6 @@ public class UserActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap img = (Bitmap) data.getExtras().get("data");
                 selectedImage.setImageBitmap(img);
-
-
 //                File f = new File(currentPhotoPath);
 //                selectedImage.setImageURI(Uri.fromFile(f));
 //                Log.d("tag", "ABsolute Url of Image is " + Uri.fromFile(f));
@@ -159,7 +157,7 @@ public class UserActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        final StorageReference image = storageReference.child(auth.getUid()+"/pictures/" + name);
+        final StorageReference image = storageReference.child(auth.getUid() + Data.path + name);
         image.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -212,23 +210,5 @@ public class UserActivity extends AppCompatActivity {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         startActivityForResult(takePictureIntent,CAMERA_REQUEST_CODE);
-//        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-//            // Create the File where the photo should go
-//            File photoFile = null;
-//            try {
-//                photoFile = createImageFile();
-//            } catch (IOException ex) {
-//
-//            }
-//            // Continue only if the File was successfully created
-//            if (photoFile != null) {
-//                Uri photoURI = FileProvider.getUriForFile(this,
-//                        "net.smallacademy.android.fileprovider",
-//                        photoFile);
-//                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-//                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
-//            }
-//        }
     }
-
 }

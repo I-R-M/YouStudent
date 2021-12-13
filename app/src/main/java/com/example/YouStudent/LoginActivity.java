@@ -47,8 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                                             // Sign in success, update UI with the signed-in user's information
                                             Log.d("status", "signInWithEmail:success");
                                             FirebaseUser user = mauth.getCurrentUser();
-                                            // switchActivity(UserActivity.class);
-                                            switchActivity(UserFolderActivity.class);
+                                            Data.switchActivity(LoginActivity.this, UserFolderActivity.class);
                                             // updateUI(user);
                                         } else {
                                             // If sign in fails, display a message to the user.
@@ -63,10 +62,4 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
-    private void switchActivity(Class c)
-    {
-        Intent i = new Intent(this,c);
-        startActivity(i);
-    }
-
 }

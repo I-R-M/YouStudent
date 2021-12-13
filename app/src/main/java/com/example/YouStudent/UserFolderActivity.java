@@ -1,14 +1,18 @@
 package com.example.YouStudent;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -23,12 +27,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class UserFolderActivity extends AppCompatActivity {
 
     LinearLayout linearLayout;
     FirebaseAuth auth;
     private StorageReference storageReference;
+    public String m_Text = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,53 +50,16 @@ public class UserFolderActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
                     @Override
                     public void onSuccess(ListResult listResult) {
-                        int counter = 3333;
                         for (StorageReference prefix : listResult.getPrefixes()) {
                             Log.d("prefix", prefix.getName());
 
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT);
-                            Button btn = new Button(UserFolderActivity.this);
-                            btn.setId(counter);
-                            counter++;
-                            final int id_ = btn.getId();
-                            btn.setText(prefix.getName());
-                            btn.setBackgroundColor(Color.rgb(0, 0, 0));
-                            btn.setTextColor(Color.rgb(255, 255, 255));
-                            linearLayout.addView(btn, params);
-                            Button btn1 = ((Button) findViewById(id_));
-                            btn1.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-                                    Toast.makeText(view.getContext(),
-                                            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                                            .show();
-                                }
-                            });
+                            Data.createButton(UserFolderActivity.this, linearLayout, prefix.getName());
                         }
 
                         for (StorageReference item : listResult.getItems()) {
                             Log.d("item", item.getName());
 
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                                    LinearLayout.LayoutParams.MATCH_PARENT,
-                                    LinearLayout.LayoutParams.WRAP_CONTENT);
-                            Button btn = new Button(UserFolderActivity.this);
-                            btn.setId(counter);
-                            counter++;
-                            final int id_ = btn.getId();
-                            btn.setText(item.getName());
-                            btn.setBackgroundColor(Color.rgb(0, 0, 0));
-                            btn.setTextColor(Color.rgb(255, 255, 255));
-                            linearLayout.addView(btn, params);
-                            Button btn1 = ((Button) findViewById(id_));
-                            btn1.setOnClickListener(new View.OnClickListener() {
-                                public void onClick(View view) {
-                                    Toast.makeText(view.getContext(),
-                                            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                                            .show();
-                                }
-                            });
+                            Data.createButton(UserFolderActivity.this, linearLayout, item.getName());
                         }
                     }
                 })
@@ -105,14 +74,56 @@ public class UserFolderActivity extends AppCompatActivity {
         addPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                 switchActivity(UserActivity.class);
+                 Data.switchActivity(UserFolderActivity.this, UserActivity.class);
             }
         });
-    }
+        ImageButton addFolder = (ImageButton) findViewById(R.id.addFolder);
+        addFolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                AlertDialog.Builder builder = new AlertDialog.Builder(UserFolderActivity.this);
+                builder.setTitle("folder name");
 
-    private void switchActivity(Class c)
-    {
-        Intent i = new Intent(this,c);
-        startActivity(i);
+                // Set up the input
+                final EditText input = new EditText(UserFolderActivity.this);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                        if(m_Text != "")
+                        {
+                            Data.createButton(UserFolderActivity.this, linearLayout, m_Text);
+                            byte [] arr = {};
+                            storageReference.child(auth.getUid()+"/"+m_Text+"/temp.txt").putBytes(arr).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    //storageReference.child(auth.getUid()+"/"+m_Text+"/temp.txt").delete();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+
+                        }
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+
+            }
+        });
     }
 }

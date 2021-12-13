@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         Log.d("status", "createUserWithEmail:success");
                                         FirebaseUser user = mauth.getCurrentUser();
                                         // to the main activity
-                                        switchActivity(UserActivity.class);
+                                        Data.switchActivity(RegisterActivity.this, UserActivity.class);
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("status", "createUserWithEmail:failure", task.getException());
@@ -76,10 +76,4 @@ public class RegisterActivity extends AppCompatActivity {
                 }
         );
     }
-    private void switchActivity(Class c)
-    {
-        Intent i = new Intent(this,c);
-        startActivity(i);
-    }
-
 }
