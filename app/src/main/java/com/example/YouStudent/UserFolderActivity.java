@@ -54,6 +54,7 @@ public class UserFolderActivity extends AppCompatActivity {
                             Log.d("prefix", prefix.getName());
 
                             Data.createButton(UserFolderActivity.this, linearLayout, prefix.getName());
+
                         }
 
                         for (StorageReference item : listResult.getItems()) {
@@ -123,6 +124,14 @@ public class UserFolderActivity extends AppCompatActivity {
                 });
                 builder.show();
 
+            }
+        });
+        ImageButton returnbutton = findViewById(R.id.returnbutton);
+        returnbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Data.removeOneFromPath();
+                Data.getSubButtons("",UserFolderActivity.this,linearLayout);
             }
         });
     }
