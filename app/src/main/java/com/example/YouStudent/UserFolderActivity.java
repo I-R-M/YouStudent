@@ -60,7 +60,7 @@ public class UserFolderActivity extends AppCompatActivity {
                         for (StorageReference item : listResult.getItems()) {
                             Log.d("item", item.getName());
 
-                            Data.createButton(UserFolderActivity.this, linearLayout, item.getName());
+                            Data.createButtonItem(UserFolderActivity.this, linearLayout, item.getName());
                         }
                     }
                 })

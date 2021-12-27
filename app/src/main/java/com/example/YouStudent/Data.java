@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,7 @@ import java.util.List;
 
 public class Data {
     public static String path = "";
+    public static String imagename="";
     public static List<Button>buttons = null;
     public static int buttonIdCounter = 3333;
     public static int lastid;
@@ -60,6 +62,30 @@ public class Data {
 //            }
 //        });
     }
+    public static void createButtonItem(AppCompatActivity activity, LinearLayout linearLayout, String name)
+    {
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        Button btn = new Button(activity);
+        btn.setId(Data.buttonIdCounter);
+        Data.buttonIdCounter++;
+        final int id_ = btn.getId();
+        btn.setText(name);
+        btn.setBackgroundColor(Color.rgb(0, 0, 0));
+        btn.setTextColor(Color.rgb(255, 255, 255));
+        linearLayout.addView(btn, params);
+        Button btn1 = ((Button) activity.findViewById(id_));
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("item onclick","moving to display image");
+                imagename =  ((Button)v).getText().toString();
+                switchActivity(activity,ImageDisplayActivity.class);
+            }
+        });
+
+    }
 
     public static void switchActivity(AppCompatActivity activity, Class c)
     {
@@ -72,6 +98,7 @@ public class Data {
     }
     public static void addToPath(String s)
     {
+
         path += s+"/";
     }
     public static void removeOneFromPath()
@@ -81,12 +108,14 @@ public class Data {
         for (int i = 0; i < arr.length-1; i++) {
             s += arr[i]+"/";
         }
-        path = s;
+        path = s.length()>0? s.substring(0,s.length()-1):s;
     }
     public static void getSubButtons(String name, AppCompatActivity activity,LinearLayout linearLayout)
     {
         addToPath(name);
         String p = getPath();
+        String temp = ("Directory is: "+  Data.path);
+        ((TextView)activity.findViewById(R.id.directorydisplay)).setText(temp.toCharArray(),0,temp.length());
         StorageReference s = FirebaseStorage.getInstance().getReference();
         StorageReference ref = s.child(p);
         ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
@@ -123,7 +152,8 @@ public class Data {
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            getSubButtons(item.getName(),activity,linearLayout);
+                            imagename = ((Button)v).getText().toString();
+                            switchActivity(activity,ImageDisplayActivity.class);
                         }
                     });
                     buttons.add(btn);

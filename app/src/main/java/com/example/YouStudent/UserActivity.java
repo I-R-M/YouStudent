@@ -14,6 +14,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -117,7 +118,14 @@ public class UserActivity extends AppCompatActivity {
         if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 Bitmap img = (Bitmap) data.getExtras().get("data");
-                selectedImage.setImageBitmap(img);
+                Matrix matrix = new Matrix();
+
+                matrix.postRotate(-90);
+
+                Bitmap scaledBitmap = Bitmap.createScaledBitmap(img, img.getWidth(), img.getHeight(), true);
+
+                Bitmap rotatedBitmap = Bitmap.createBitmap(scaledBitmap, 0, 0, scaledBitmap.getWidth(), scaledBitmap.getHeight(), matrix, true);
+                selectedImage.setImageBitmap(rotatedBitmap);
 //                File f = new File(currentPhotoPath);
 //                selectedImage.setImageURI(Uri.fromFile(f));
 //                Log.d("tag", "ABsolute Url of Image is " + Uri.fromFile(f));
@@ -157,7 +165,7 @@ public class UserActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        final StorageReference image = storageReference.child(Data.getPath());
+        final StorageReference image = storageReference.child(Data.getPath()+"/"+name);
         image.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
