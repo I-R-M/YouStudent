@@ -25,7 +25,7 @@ import java.util.List;
 public class Data {
     public static boolean isShared = false;
     public static String path = "";
-    public static String sharedPath = "shared/";
+    public static String sharedPath = "";
     public static String imagename="";
     public static List<Button>buttons = null;
     public static int buttonIdCounter = 3333;
@@ -106,27 +106,29 @@ public class Data {
     }
     public static String getSharedPath()
     {
-        return sharedPath;
+
+        return "shared" + "/" + sharedPath;
+//        return sharedPath;
     }
     public static void addToPath(String s)
     {
-
         path += s+"/";
     }
     public static void addToSharedPath(String s)
     {
-            if(sharedPath.contains("shared"))
-        {
-            if(!s.equals(""))
-                sharedPath +=s+"/";
-        }
-        else {
-            sharedPath += "shared/" + s + "/";
-        }
+        sharedPath += s+"/";
+//        if(sharedPath.contains("shared"))
+//        {
+//            if(!s.equals(""))
+//                sharedPath +=s+"/";
+//        }
+//        else {
+//            sharedPath += "shared/" + s + "/";
+//        }
     }
     public static void removeOneFromPath()
     {
-        String arr[] =path.split("/");
+        String arr[] = path.split("/");
         String s = "";
         for (int i = 0; i < arr.length-1; i++) {
             s += arr[i]+"/";
@@ -135,7 +137,7 @@ public class Data {
     }
     public static void removeOneFromSharedPath()
     {
-        String arr[] =sharedPath.split("/");
+        String arr[] = sharedPath.split("/");
         String s = "";
         for (int i = 0; i < arr.length-1; i++) {
             s += arr[i]+"/";
@@ -165,8 +167,8 @@ public class Data {
                     btn.setText(prefix.getName());
                     //btn.setBackgroundColor(Color.rgb(0, 0, 0));
                     btn.setBackgroundResource(R.drawable.ic_action_folder);
-                    btn.setHeight(40);
-                    btn.setWidth(40);
+//                    btn.setHeight(40);
+//                    btn.setWidth(40);
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -182,9 +184,9 @@ public class Data {
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
                     btn.setBackgroundResource(R.drawable.ic_action_image);
-                    btn.setText(item.getName());
-                    btn.setHeight(40);
-                    btn.setWidth(40);
+                    btn.setText(item.getName() + ".png");
+//                    btn.setHeight(40);
+//                    btn.setWidth(40);
                     //btn.setBackgroundColor(Color.rgb(0, 0, 0));
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -235,8 +237,8 @@ public class Data {
                     btn.setText(prefix.getName());
                     btn.setBackgroundResource(R.drawable.ic_action_folder);
                     //btn.setBackgroundColor(Color.rgb(0, 0, 0));
-                    btn.setHeight(40);
-                    btn.setWidth(40);
+//                    btn.setHeight(40);
+//                    btn.setWidth(40);
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -252,9 +254,9 @@ public class Data {
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
                     btn.setBackgroundResource(R.drawable.ic_action_image);
-                    btn.setText(item.getName());
-                    btn.setHeight(40);
-                    btn.setWidth(40);
+                    btn.setText(item.getName() + ".png");
+//                    btn.setHeight(40);
+//                    btn.setWidth(40);
                     //btn.setBackgroundColor(Color.rgb(0, 0, 0));
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
@@ -282,5 +284,4 @@ public class Data {
             }
         });
     }
-
 }

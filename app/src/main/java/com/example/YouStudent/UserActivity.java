@@ -173,6 +173,10 @@ public class UserActivity extends AppCompatActivity {
                 image.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
+                        StorageReference fileToDelete = !Data.isShared ? storageReference.child(Data.getPath()+"/temp.txt")
+                                : storageReference.child(Data.getSharedPath()+"/temp.txt");
+                        if(fileToDelete != null)
+                            fileToDelete.delete();
                         Log.d("tag", "onSuccess: Uploaded Image URl is " + uri.toString());
                     }
                 });

@@ -36,9 +36,6 @@ public class SharedFolderActivity extends AppCompatActivity {
     private StorageReference storageReference;
     public String m_Text = "";
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +59,6 @@ public class SharedFolderActivity extends AppCompatActivity {
                                 continue;
                             //Change here is to dispaly the emails in a nice manner.
                                 Data.createButton(SharedFolderActivity.this, linearLayout, prefix.getName());
-
                         }
 
                         for (StorageReference item : listResult.getItems()) {
@@ -147,8 +143,12 @@ public class SharedFolderActivity extends AppCompatActivity {
                 }
             }
         });
+        ImageButton privatebutton = findViewById(R.id.privateFoldersButton);
+        privatebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Data.switchActivity(SharedFolderActivity.this,UserFolderActivity.class);
+            }
+        });
     }
-
-
-
 }
