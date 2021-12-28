@@ -138,7 +138,7 @@ public class SharedFolderActivity extends AppCompatActivity {
         returnbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Data.getSharedPath().equals("shared") || Data.getSharedPath().equals("shared/")) {
+                    if (Data.getSharedPath().equals("shared") || Data.getSharedPath().equals("shared/")) {
                     Data.isShared = false;
                     Data.switchActivity(SharedFolderActivity.this, UserFolderActivity.class);
                 } else {

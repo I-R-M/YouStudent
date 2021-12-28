@@ -102,7 +102,7 @@ public class UserFolderActivity extends AppCompatActivity {
                         {
                             Data.createButton(UserFolderActivity.this, linearLayout, m_Text);
                             byte [] arr = {};
-                            storageReference.child(auth.getUid()+"/"+m_Text+"/temp.txt").putBytes(arr).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            storageReference.child(Data.getPath()+m_Text+"/temp.txt").putBytes(arr).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     //storageReference.child(auth.getUid()+"/"+m_Text+"/temp.txt").delete();

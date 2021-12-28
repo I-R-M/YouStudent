@@ -115,7 +115,7 @@ public class Data {
     }
     public static void addToSharedPath(String s)
     {
-        if(sharedPath.contains("shared"))
+            if(sharedPath.contains("shared"))
         {
             if(!s.equals(""))
                 sharedPath +=s+"/";

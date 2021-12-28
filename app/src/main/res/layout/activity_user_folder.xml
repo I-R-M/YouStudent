@@ -67,12 +67,14 @@
         android:id="@+id/returnbutton"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginStart="210dp"
+        android:layout_marginTop="570dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.586"
-        app:layout_constraintStart_toEndOf="@+id/addPicture"
+        app:layout_constraintHorizontal_bias="0.867"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975"
+        app:layout_constraintVertical_bias="0.802"
         app:srcCompat="@drawable/ic_return2_foreground" />
 
     <TextView
@@ -92,13 +94,15 @@
         android:id="@+id/sharedFolderButton"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        android:layout_marginTop="570dp"
+        android:layout_marginEnd="210dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.975"
-        app:srcCompat="@drawable/ic_action_image" />
+        app:layout_constraintVertical_bias="0.802"
+        app:srcCompat="@drawable/ic_action_shared_folder" />
 
     <!--        android:hint="e.g 5"-->
         app:layout_constraintBottom_toBottomOf="parent"
