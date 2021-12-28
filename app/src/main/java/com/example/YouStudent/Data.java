@@ -19,7 +19,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +40,10 @@ public class Data {
         Data.buttonIdCounter++;
         final int id_ = btn.getId();
         btn.setText(name);
-        btn.setBackgroundColor(Color.rgb(0, 0, 0));
+        btn.setBackgroundResource(R.drawable.ic_action_folder);
+        //btn.setBackgroundColor(Color.rgb(0, 0, 0));
+        btn.setHeight(40);
+        btn.setWidth(40);
         btn.setTextColor(Color.rgb(255, 255, 255));
         linearLayout.addView(btn, params);
         Button btn1 = ((Button) activity.findViewById(id_));
@@ -73,8 +75,11 @@ public class Data {
         btn.setId(Data.buttonIdCounter);
         Data.buttonIdCounter++;
         final int id_ = btn.getId();
+        btn.setBackgroundResource(R.drawable.ic_action_image);
         btn.setText(name);
-        btn.setBackgroundColor(Color.rgb(0, 0, 0));
+        btn.setHeight(40);
+        btn.setWidth(40);
+        //btn.setBackgroundColor(Color.rgb(0, 0, 0));
         btn.setTextColor(Color.rgb(255, 255, 255));
         linearLayout.addView(btn, params);
         Button btn1 = ((Button) activity.findViewById(id_));
@@ -158,7 +163,10 @@ public class Data {
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
                     btn.setText(prefix.getName());
-                    btn.setBackgroundColor(Color.rgb(0, 0, 0));
+                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
+                    btn.setBackgroundResource(R.drawable.ic_action_folder);
+                    btn.setHeight(40);
+                    btn.setWidth(40);
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -173,8 +181,11 @@ public class Data {
                     Button btn = new Button(activity);
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
+                    btn.setBackgroundResource(R.drawable.ic_action_image);
                     btn.setText(item.getName());
-                    btn.setBackgroundColor(Color.rgb(0, 0, 0));
+                    btn.setHeight(40);
+                    btn.setWidth(40);
+                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -222,7 +233,10 @@ public class Data {
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
                     btn.setText(prefix.getName());
-                    btn.setBackgroundColor(Color.rgb(0, 0, 0));
+                    btn.setBackgroundResource(R.drawable.ic_action_folder);
+                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
+                    btn.setHeight(40);
+                    btn.setWidth(40);
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -237,9 +251,12 @@ public class Data {
                     Button btn = new Button(activity);
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
+                    btn.setBackgroundResource(R.drawable.ic_action_image);
                     btn.setText(item.getName());
-                    btn.setBackgroundColor(Color.rgb(0, 0, 0));
-                    btn.setTextColor(Color.rgb(143, 157, 26));
+                    btn.setHeight(40);
+                    btn.setWidth(40);
+                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
+                    btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
