@@ -165,7 +165,8 @@ public class UserActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
-        final StorageReference image = storageReference.child(Data.getPath()+"/"+name);
+        final StorageReference image = !Data.isShared ? storageReference.child(Data.getPath()+"/"+name)
+                                        : storageReference.child(Data.getSharedPath()+"/" + name);
         image.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

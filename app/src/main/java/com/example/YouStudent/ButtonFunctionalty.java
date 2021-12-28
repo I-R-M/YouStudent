@@ -1,5 +1,6 @@
 package com.example.YouStudent;
 
+import static com.example.YouStudent.Data.getSharedSubButtons;
 import static com.example.YouStudent.Data.getSubButtons;
 
 import android.view.View;
@@ -22,6 +23,11 @@ public class ButtonFunctionalty implements View.OnClickListener {
     }
     @Override
     public void onClick(View v) {
+        if(Data.isShared){
+        getSharedSubButtons(buttonname,activity,linearLayout);
+        }
+        else {
         getSubButtons(buttonname,activity,linearLayout);
+        }
     }
 }

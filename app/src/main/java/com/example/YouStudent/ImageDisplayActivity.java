@@ -22,7 +22,7 @@ public class ImageDisplayActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_image_display);
         StorageReference reference = FirebaseStorage.getInstance().getReference();
-        StorageReference img = reference.child(Data.getPath()+Data.imagename);
+        StorageReference img = !Data.isShared ? reference.child(Data.getPath()+Data.imagename) : reference.child(Data.getSharedPath()+Data.imagename);
         img.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {

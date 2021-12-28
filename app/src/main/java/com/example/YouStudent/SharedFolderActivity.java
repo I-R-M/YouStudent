@@ -45,7 +45,7 @@ public class SharedFolderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shared_folder);
         linearLayout = findViewById(R.id.shared_linear_layout);
         auth = FirebaseAuth.getInstance();
-
+        Data.isShared = true;
         storageReference = FirebaseStorage.getInstance().getReference();
         StorageReference listRef = storageReference.child("shared/");
         listRef.listAll()
@@ -61,14 +61,12 @@ public class SharedFolderActivity extends AppCompatActivity {
                             if(!prefix.getName().contains(auth.getUid()))
                                 continue;
                             //Change here is to dispaly the emails in a nice manner.
-                            Data.createButton(SharedFolderActivity.this, linearLayout, prefix.getName().replace(auth.getUid(),auth.getCurrentUser().getEmail()));
+                                Data.createButton(SharedFolderActivity.this, linearLayout, prefix.getName());
 
                         }
 
                         for (StorageReference item : listResult.getItems()) {
                             Log.d("item", item.getName());
-                            if(!item.getName().contains(auth.getUid()))
-                                continue;
                             Data.createButtonItem(SharedFolderActivity.this, linearLayout, item.getName());
                         }
                     }
@@ -110,7 +108,7 @@ public class SharedFolderActivity extends AppCompatActivity {
                         {
                             Data.createButton(SharedFolderActivity.this, linearLayout, m_Text);
                             byte [] arr = {};
-                            storageReference.child(auth.getUid()+"/"+m_Text+"/temp.txt").putBytes(arr).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            storageReference.child(Data.getSharedPath()+"/"+m_Text+"/temp.txt").putBytes(arr).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     //storageReference.child(auth.getUid()+"/"+m_Text+"/temp.txt").delete();
@@ -140,80 +138,17 @@ public class SharedFolderActivity extends AppCompatActivity {
         returnbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Data.removeOneFromSharedPath();
-                getSharedSubButtons("",SharedFolderActivity.this,linearLayout);
+                if (Data.getSharedPath().equals("shared") || Data.getSharedPath().equals("shared/")) {
+                    Data.isShared = false;
+                    Data.switchActivity(SharedFolderActivity.this, UserFolderActivity.class);
+                } else {
+                    Data.removeOneFromSharedPath();
+                    Data.getSharedSubButtons("", SharedFolderActivity.this, linearLayout);
+                }
             }
         });
     }
 
 
-    public void getSharedSubButtons(String name, AppCompatActivity activity,LinearLayout linearLayout)
-    {
 
-        Data.addToSharedPath(name);
-        String p = Data.getSharedPath();
-        String temp = ("Directory is: "+  Data.sharedPath);
-        ((TextView)activity.findViewById(R.id.directorydisplay)).setText(temp.toCharArray(),0,temp.length());
-        StorageReference s = FirebaseStorage.getInstance().getReference();
-        StorageReference ref = s.child(p);
-        ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
-            @Override
-            public void onSuccess(ListResult listResult) {
-                Log.d("onsuccess","entered on sucess");
-                ArrayList<Button> buttons = new ArrayList<Button>();
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                for (StorageReference prefix :listResult.getPrefixes()) {
-                    if(!prefix.getName().contains(auth.getUid()))
-                        continue;
-                    Button btn = new Button(activity);
-                    btn.setId(Data.buttonIdCounter);
-                    Data.buttonIdCounter++;
-                    btn.setText(prefix.getName());
-                    btn.setBackgroundColor(Color.rgb(0, 0, 0));
-                    btn.setTextColor(Color.rgb(255, 255, 255));
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getSharedSubButtons(prefix.getName(),activity,linearLayout);
-                        }
-                    });
-                    buttons.add(btn);
-                    Log.d("onsuccess","added button");
-                }
-                for (StorageReference item :listResult.getItems()) {
-                    if(!item.getName().contains(auth.getUid()))
-                        continue;
-                    Button btn = new Button(activity);
-                    btn.setId(Data.buttonIdCounter);
-                    Data.buttonIdCounter++;
-                    btn.setText(item.getName());
-                    btn.setBackgroundColor(Color.rgb(0, 0, 0));
-                    btn.setTextColor(Color.rgb(255, 255, 255));
-                    btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Data.imagename = ((Button)v).getText().toString();
-                            Data.switchActivity(activity,ImageDisplayActivity.class);
-                        }
-                    });
-                    buttons.add(btn);
-                    Log.d("onsuccess","added button");
-
-                }
-                Log.d("onsuccess","finished with shite");
-                linearLayout.removeAllViews();
-                for (Button b:buttons) {
-                    linearLayout.addView(b,params);
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("Retriving folder data","Failed getting folder data");
-                Toast.makeText(activity,"Failed",Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 }

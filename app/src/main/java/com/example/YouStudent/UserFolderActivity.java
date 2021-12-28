@@ -39,6 +39,7 @@ public class UserFolderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Data.isShared = false;
         setContentView(R.layout.activity_user_folder);
         linearLayout = findViewById(R.id.linear_layout);
         auth = FirebaseAuth.getInstance();
