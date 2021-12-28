@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyColorApp">
         <activity
+            android:name=".SharedFolderActivity"
+            android:exported="false" />
+        <activity
             android:name=".ImageDisplayActivity"
             android:exported="false" />
         <activity

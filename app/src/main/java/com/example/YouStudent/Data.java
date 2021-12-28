@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
+    public static boolean isShared = false;
     public static String path = "";
+    public static String sharedPath = "";
     public static String imagename="";
     public static List<Button>buttons = null;
     public static int buttonIdCounter = 3333;
@@ -92,14 +94,24 @@ public class Data {
         Intent i = new Intent(activity, c);
         activity.startActivity(i);
     }
+
     public static String getPath()
     {
         return FirebaseAuth.getInstance().getUid() + "/" + path;
+    }
+    public static String getSharedPath()
+    {
+        return FirebaseAuth.getInstance().getUid() + "/" + sharedPath;
     }
     public static void addToPath(String s)
     {
 
         path += s+"/";
+    }
+    public static void addToSharedPath(String s)
+    {
+
+        sharedPath += s+"/";
     }
     public static void removeOneFromPath()
     {
@@ -109,6 +121,15 @@ public class Data {
             s += arr[i]+"/";
         }
         path = s.length()>0? s.substring(0,s.length()-1):s;
+    }
+    public static void removeOneFromSharedPath()
+    {
+        String arr[] =sharedPath.split("/");
+        String s = "";
+        for (int i = 0; i < arr.length-1; i++) {
+            s += arr[i]+"/";
+        }
+        sharedPath = s.length()>0? s.substring(0,s.length()-1):s;
     }
     public static void getSubButtons(String name, AppCompatActivity activity,LinearLayout linearLayout)
     {
@@ -174,4 +195,5 @@ public class Data {
             }
         });
     }
+
 }

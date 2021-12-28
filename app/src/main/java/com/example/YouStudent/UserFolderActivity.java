@@ -51,6 +51,7 @@ public class UserFolderActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(ListResult listResult) {
                         for (StorageReference prefix : listResult.getPrefixes()) {
+
                             Log.d("prefix", prefix.getName());
 
                             Data.createButton(UserFolderActivity.this, linearLayout, prefix.getName());
@@ -126,6 +127,14 @@ public class UserFolderActivity extends AppCompatActivity {
 
             }
         });
+        ImageButton sharedbutton = findViewById(R.id.sharedFolderButton);
+        sharedbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              Data.switchActivity(UserFolderActivity.this,SharedFolderActivity.class);
+            }
+        });
+
         ImageButton returnbutton = findViewById(R.id.returnbutton);
         returnbutton.setOnClickListener(new View.OnClickListener() {
             @Override
