@@ -41,6 +41,7 @@ public class SearchActivity extends AppCompatActivity {
         Button searchButton = findViewById(R.id.searchButton);
 
         EditText searchView = (EditText) findViewById(R.id.searchBar);
+
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,40 +57,48 @@ public class SearchActivity extends AppCompatActivity {
                                     if(task.getResult().size() == 0)
                                     {
                                         textView.setText("no such user with this email was found!");
+                                        createButton.setVisibility(View.INVISIBLE);
                                     }
                                     else
                                     {
                                         DocumentSnapshot doc = task.getResult().getDocuments().get(0);
                                         String email = doc.get("email").toString();
-                                        textView.setText(email);
-                                        createButton.setVisibility(View.VISIBLE);
-                                        createButton.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                String otheruid = doc.get("uid").toString();
-                                                ArrayList<String> uids = new ArrayList<>();
-                                                uids.add(otheruid);
-                                                uids.add(auth.getUid());
-                                                Collections.sort(uids);
-                                                String folderName = uids.get(0) + "_" +  uids.get(1);
-                                                byte[] arr = {};
-                                                FirebaseStorage.getInstance().getReference().child("shared/" + folderName + "/temp.txt").putBytes(arr)
-                                                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                                    @Override
-                                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                        Toast.makeText(SearchActivity.this, "Folder created successfully.",
-                                                                Toast.LENGTH_LONG).show();
-                                                        Data.switchActivity(SearchActivity.this, SharedFolderActivity.class);
-                                                    }
-                                                }).addOnFailureListener(new OnFailureListener() {
-                                                    @Override
-                                                    public void onFailure(@NonNull Exception e) {
-                                                        Toast.makeText(SearchActivity.this, "couldn't create folder. please try again",
-                                                                Toast.LENGTH_LONG).show();
-                                                    }
-                                                });
-                                            }
-                                        });
+                                        if(email.equals(auth.getCurrentUser().getEmail()))
+                                        {
+                                            textView.setText("Can't make shared folder with yourself");
+                                            createButton.setVisibility(View.INVISIBLE);
+                                        }
+                                        else{
+                                            textView.setText(email);
+                                            createButton.setVisibility(View.VISIBLE);
+                                            createButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    String otheruid = doc.get("uid").toString();
+                                                    ArrayList<String> uids = new ArrayList<>();
+                                                    uids.add(otheruid);
+                                                    uids.add(auth.getUid());
+                                                    Collections.sort(uids);
+                                                    String folderName = uids.get(0) + "_" +  uids.get(1);
+                                                    byte[] arr = {};
+                                                    FirebaseStorage.getInstance().getReference().child("shared/" + folderName + "/temp.txt").putBytes(arr)
+                                                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                        @Override
+                                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                            Toast.makeText(SearchActivity.this, "Folder created successfully.",
+                                                                    Toast.LENGTH_LONG).show();
+                                                            Data.switchActivity(SearchActivity.this, SharedFolderActivity.class);
+                                                        }
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Toast.makeText(SearchActivity.this, "couldn't create folder. please try again",
+                                                                    Toast.LENGTH_LONG).show();
+                                                        }
+                                                    });
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }

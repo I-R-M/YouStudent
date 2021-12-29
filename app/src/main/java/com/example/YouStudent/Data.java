@@ -167,6 +167,7 @@ public class Data {
                 for (StorageReference prefix :listResult.getPrefixes()) {
                     Button btn = new Button(activity);
                     btn.setId(Data.buttonIdCounter);
+                    btn.setAllCaps(false);
                     Data.buttonIdCounter++;
                     btn.setText(prefix.getName());
                     btn.setBackgroundResource(R.drawable.ic_action_folder);
@@ -233,6 +234,7 @@ public class Data {
                     Button btn = new Button(activity);
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
+                    btn.setAllCaps(false);
                     btn.setText(prefix.getName());
                     btn.setBackgroundResource(R.drawable.ic_action_folder);
                     btn.setTextColor(Color.rgb(255, 255, 255));
