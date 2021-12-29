@@ -218,7 +218,7 @@ public class Data {
         Data.addToSharedPath(name);
         String p = Data.getSharedPath();
         String temp = ("Directory is: "+  Data.sharedPath);
-        ((TextView)activity.findViewById(R.id.shared_directorydisplay)).setText(temp.toCharArray(),0,temp.length());
+//        ((TextView)activity.findViewById(R.id.shared_directorydisplay)).setText(temp.toCharArray(),0,temp.length());
         StorageReference s = FirebaseStorage.getInstance().getReference();
         StorageReference ref = s.child(p);
         ref.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {

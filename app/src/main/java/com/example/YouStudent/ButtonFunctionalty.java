@@ -6,6 +6,7 @@ import static com.example.YouStudent.Data.getSubButtons;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,7 +41,8 @@ public class ButtonFunctionalty implements View.OnClickListener {
             CollectionReference ref = firestore.collection("users");
             String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
             String arr [] = buttonname.split("_");
-
+            TextView txt = ((TextView)activity.findViewById(R.id.shared_directorydisplay));// .setText(temp.toCharArray(),0,temp.length());
+            txt.setText(txt.getText().toString()+"/"+buttonname);
             ref.whereEqualTo("email", mail.equals(arr[0])? arr[1]:arr[0])
                     .get()
                     .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
