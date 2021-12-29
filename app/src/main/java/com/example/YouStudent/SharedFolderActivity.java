@@ -17,10 +17,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUserMetadata;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +50,8 @@ public class SharedFolderActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         Data.isShared = true;
         storageReference = FirebaseStorage.getInstance().getReference();
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
         StorageReference listRef = storageReference.child("shared/");
         listRef.listAll()
                 .addOnSuccessListener(new OnSuccessListener<ListResult>() {
@@ -58,7 +66,27 @@ public class SharedFolderActivity extends AppCompatActivity {
                             if(!prefix.getName().contains(auth.getUid()))
                                 continue;
                             //Change here is to dispaly the emails in a nice manner.
-                                Data.createButton(SharedFolderActivity.this, linearLayout, prefix.getName());
+                            //-----------------------------------------------------------------------
+                            String[] uids = prefix.getName().split("_");
+                            String otherUid = uids[0].equals(auth.getUid())?uids[1] : uids[0];
+                            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+                            CollectionReference ref = firestore.collection("users");
+                            ref.whereEqualTo("uid", otherUid)
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if(task.isSuccessful())
+                                            {
+                                                DocumentSnapshot doc = task.getResult().getDocuments().get(0);
+                                                String email = doc.get("email").toString();
+                                                Data.createButton(SharedFolderActivity.this, linearLayout, email + "_" + auth.getCurrentUser().getEmail());
+                                            }
+                                        }
+                                    });
+                            //--------------------------------------------------------------------------
+//                            Data.createButton(SharedFolderActivity.this, linearLayout, Data.getEmailFromFirestore(uids[0]) + "_" + Data.getEmailFromFirestore(uids[1]));
+//                            Data.createButton(SharedFolderActivity.this, linearLayout, prefix.getName());
                         }
 
                         for (StorageReference item : listResult.getItems()) {
@@ -148,6 +176,14 @@ public class SharedFolderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Data.switchActivity(SharedFolderActivity.this,UserFolderActivity.class);
+            }
+        });
+
+        ImageButton addButton = findViewById(R.id.AddFriendButtonShared);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Data.switchActivity(SharedFolderActivity.this, SearchActivity.class);
             }
         });
     }

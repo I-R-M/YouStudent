@@ -1,5 +1,6 @@
 package com.example.YouStudent;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
@@ -12,14 +13,23 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Data {
@@ -40,6 +50,7 @@ public class Data {
         Data.buttonIdCounter++;
         final int id_ = btn.getId();
         btn.setText(name);
+        btn.setAllCaps(false);
         btn.setBackgroundResource(R.drawable.ic_action_folder);
         //btn.setBackgroundColor(Color.rgb(0, 0, 0));
         btn.setHeight(40);
@@ -77,6 +88,7 @@ public class Data {
         final int id_ = btn.getId();
         btn.setBackgroundResource(R.drawable.ic_action_image);
         btn.setText(name);
+        btn.setAllCaps(false);
         btn.setHeight(40);
         btn.setWidth(40);
         //btn.setBackgroundColor(Color.rgb(0, 0, 0));
@@ -108,7 +120,6 @@ public class Data {
     {
 
         return "shared" + "/" + sharedPath;
-//        return sharedPath;
     }
     public static void addToPath(String s)
     {
@@ -117,14 +128,6 @@ public class Data {
     public static void addToSharedPath(String s)
     {
         sharedPath += s+"/";
-//        if(sharedPath.contains("shared"))
-//        {
-//            if(!s.equals(""))
-//                sharedPath +=s+"/";
-//        }
-//        else {
-//            sharedPath += "shared/" + s + "/";
-//        }
     }
     public static void removeOneFromPath()
     {
@@ -165,10 +168,7 @@ public class Data {
                     btn.setId(Data.buttonIdCounter);
                     Data.buttonIdCounter++;
                     btn.setText(prefix.getName());
-                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
                     btn.setBackgroundResource(R.drawable.ic_action_folder);
-//                    btn.setHeight(40);
-//                    btn.setWidth(40);
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -185,9 +185,7 @@ public class Data {
                     Data.buttonIdCounter++;
                     btn.setBackgroundResource(R.drawable.ic_action_image);
                     btn.setText(item.getName() + ".png");
-//                    btn.setHeight(40);
-//                    btn.setWidth(40);
-                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
+
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -236,9 +234,6 @@ public class Data {
                     Data.buttonIdCounter++;
                     btn.setText(prefix.getName());
                     btn.setBackgroundResource(R.drawable.ic_action_folder);
-                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
-//                    btn.setHeight(40);
-//                    btn.setWidth(40);
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -255,9 +250,6 @@ public class Data {
                     Data.buttonIdCounter++;
                     btn.setBackgroundResource(R.drawable.ic_action_image);
                     btn.setText(item.getName() + ".png");
-//                    btn.setHeight(40);
-//                    btn.setWidth(40);
-                    //btn.setBackgroundColor(Color.rgb(0, 0, 0));
                     btn.setTextColor(Color.rgb(255, 255, 255));
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -283,5 +275,25 @@ public class Data {
                 Toast.makeText(activity,"Failed",Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public static String getEmailFromFirestore(String uid) {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        String[] email = new String[1];
+        CollectionReference ref = firestore.collection("users");
+        ref.whereEqualTo("uid", uid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful())
+                        {
+                            DocumentSnapshot doc = task.getResult().getDocuments().get(0);
+                            email[0] = doc.get("email").toString();
+                        }
+                    }
+                });
+
+        return email[0];
     }
 }

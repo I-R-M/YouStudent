@@ -13,10 +13,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -25,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
     EditText passwordAreaRe;
     EditText email;
     FirebaseAuth mauth;
+    FirebaseFirestore db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.editTextTextPersonName2);
 
         mauth = FirebaseAuth.getInstance();
-
+        db = FirebaseFirestore.getInstance();
 
 
         registerArea.setOnClickListener(
@@ -55,8 +64,25 @@ public class RegisterActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         Log.d("status", "createUserWithEmail:success");
                                         FirebaseUser user = mauth.getCurrentUser();
+
+                                        Map<String, Object> data1 = new HashMap<>();
+                                        data1.put("uid", user.getUid());
+                                        data1.put("email", user.getEmail());
+                                        db.collection("users").add(data1).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Log.d("status", "im bobi botten");
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.e("error", e.getMessage());
+                                            }
+                                        });
+
                                         // to the main activity
-                                        Data.switchActivity(RegisterActivity.this, UserActivity.class);
+                                        Data.switchActivity(RegisterActivity.this, UserFolderActivity.class);
                                     } else {
                                         // If sign in fails, display a message to the user.
                                         Log.w("status", "createUserWithEmail:failure", task.getException());
@@ -75,5 +101,6 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 }
         );
+
     }
 }

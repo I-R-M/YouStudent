@@ -144,5 +144,13 @@ public class UserFolderActivity extends AppCompatActivity {
                 Data.getSubButtons("",UserFolderActivity.this,linearLayout);
             }
         });
+
+        ImageButton addButton = findViewById(R.id.AddFriendButton);
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Data.switchActivity(UserFolderActivity.this, SearchActivity.class);
+            }
+        });
     }
 }
