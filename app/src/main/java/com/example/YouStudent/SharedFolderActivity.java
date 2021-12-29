@@ -167,7 +167,14 @@ public class SharedFolderActivity extends AppCompatActivity {
                     Data.switchActivity(SharedFolderActivity.this, UserFolderActivity.class);
                 } else {
                     Data.removeOneFromSharedPath();
-                    Data.getSharedSubButtons("", SharedFolderActivity.this, linearLayout);
+                    if (Data.getSharedPath().equals("shared") || Data.getSharedPath().equals("shared/"))
+                    {
+                     Data.switchActivity(SharedFolderActivity.this,SharedFolderActivity.class);
+                    }
+                    else
+                    {
+                        Data.getSharedSubButtons("", SharedFolderActivity.this, linearLayout);
+                    }
                 }
             }
         });

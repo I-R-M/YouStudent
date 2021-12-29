@@ -7,7 +7,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ButtonFunctionalty implements View.OnClickListener {
     public AppCompatActivity activity;
@@ -24,7 +36,29 @@ public class ButtonFunctionalty implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(Data.isShared){
-        getSharedSubButtons(buttonname,activity,linearLayout);
+            FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+            CollectionReference ref = firestore.collection("users");
+            String mail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+            String arr [] = buttonname.split("_");
+
+            ref.whereEqualTo("email", mail.equals(arr[0])? arr[1]:arr[0])
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful())
+                            {
+                                DocumentSnapshot doc = task.getResult().getDocuments().get(0);
+                                String uid = doc.get("uid").toString();
+                                ArrayList<String> uids = new ArrayList<>();
+                                uids.add(uid);
+                                uids.add(FirebaseAuth.getInstance().getUid());
+                                Collections.sort(uids);
+                                String folderName = uids.get(0) + "_" +  uids.get(1);
+                                getSharedSubButtons(folderName,activity,linearLayout);
+                            }
+                        }
+                    });
         }
         else {
         getSubButtons(buttonname,activity,linearLayout);

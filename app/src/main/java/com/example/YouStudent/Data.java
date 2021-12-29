@@ -37,6 +37,7 @@ public class Data {
     public static String path = "";
     public static String sharedPath = "";
     public static String imagename="";
+    public static boolean isrootshared=false;
     public static List<Button>buttons = null;
     public static int buttonIdCounter = 3333;
     public static int lastid;
@@ -238,6 +239,7 @@ public class Data {
                     btn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+
                             getSharedSubButtons(prefix.getName(),activity,linearLayout);
                         }
                     });

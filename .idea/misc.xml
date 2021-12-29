@@ -3,12 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Ron/Desktop/School/Y3/youStudent/YouStudent/app/src/main/res/drawable-anydpi/ic_action_name.xml" value="0.159375" />
-        <entry key="..\:/Users/Ron/Desktop/School/Y3/youStudent/YouStudent/app/src/main/res/layout/activity_image_display.xml" value="0.14322916666666666" />
         <entry key="..\:/Users/Ron/Desktop/School/Y3/youStudent/YouStudent/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/Users/Ron/Desktop/School/Y3/youStudent/YouStudent/app/src/main/res/layout/activity_register.xml" value="0.12760416666666666" />
-        <entry key="..\:/Users/Ron/Desktop/School/Y3/youStudent/YouStudent/app/src/main/res/layout/activity_shared_folder.xml" value="0.1671875" />
-        <entry key="..\:/Users/Ron/Desktop/School/Y3/youStudent/YouStudent/app/src/main/res/layout/activity_user_folder.xml" value="0.264" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/drawable/ic_return_background.xml" value="0.3171875" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/drawable/ic_tadd_folder_foreground.xml" value="0.3171875" />
@@ -16,15 +12,14 @@
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/layout/activity_register.xml" value="0.33" />
+        <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/layout/activity_shared_folder.xml" value="0.21875" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/layout/activity_user.xml" value="0.33" />
         <entry key="..\:/documents/androidprojects/YouStudent/app/src/main/res/layout/activity_user_folder.xml" value="0.30104166666666665" />
         <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_login.xml" value="0.16485507246376813" />
         <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_main.xml" value="0.1068840579710145" />
         <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_register.xml" value="0.13541666666666666" />
-        <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_search.xml" value="0.22" />
-        <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_shared_folder.xml" value="0.4466666666666667" />
         <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_user.xml" value="0.22" />
-        <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_user_folder.xml" value="0.3333333333333333" />
+        <entry key="..\:/matan/first degree/year 3/semester 5/Software engineering/YouStudent/app/src/main/res/layout/activity_user_folder.xml" value="0.16485507246376813" />
       </map>
     </option>
   </component>
