@@ -2,7 +2,12 @@ package com.example.YouStudent;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,6 +46,13 @@ public class SearchActivity extends AppCompatActivity {
         Button searchButton = findViewById(R.id.searchButton);
 
         EditText searchView = (EditText) findViewById(R.id.searchBar);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+        {
+            NotificationChannel notificationChannel = new NotificationChannel("notification", "notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel((notificationChannel));
+        }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +99,17 @@ public class SearchActivity extends AppCompatActivity {
                                                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                                             Toast.makeText(SearchActivity.this, "Folder created successfully.",
                                                                     Toast.LENGTH_LONG).show();
+                                                            //push notification
+
+                                                            NotificationCompat.Builder builder = new NotificationCompat.Builder(SearchActivity.this,"notification");
+                                                            builder.setSmallIcon(R.drawable.ic_action_notification);
+                                                            builder.setContentTitle("Added new shared folder");
+                                                            builder.setContentText("new folder with " +textView.getText().toString());
+                                                            builder.setAutoCancel(true);
+                                                            NotificationManagerCompat managerCompat = NotificationManagerCompat.from(SearchActivity.this);
+                                                            managerCompat.notify(Data.buttonIdCounter,builder.build());
+                                                            Data.buttonIdCounter++;
+
                                                             Data.switchActivity(SearchActivity.this, SharedFolderActivity.class);
                                                         }
                                                     }).addOnFailureListener(new OnFailureListener() {

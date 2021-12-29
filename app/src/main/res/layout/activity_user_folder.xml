@@ -169,7 +169,7 @@
         app:layout_constraintStart_toEndOf="@+id/directorydisplay"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/ic_action_add" />
+        app:srcCompat="@drawable/ic_action_add_user" />
 
     <!--        android:hint="e.g 5"-->
         app:layout_constraintBottom_toBottomOf="parent"
